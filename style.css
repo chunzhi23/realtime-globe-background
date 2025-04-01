@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  font-family: Pretendard;
+}
+
+#wrap {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  background-color: #000000;
+}
+
+#globeContainer {
+  width: 36em;
+  height: 36em;
+}
+
+.globe-information {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: #ffffff;
+  font-size: small;
+}
