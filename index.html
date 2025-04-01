@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Realtime Globe Wallpaper</title>
     <link rel="stylesheet" href="./style.css" />
     <link
@@ -21,11 +20,27 @@
     <div id="wrap">
       <div id="globeContainer"></div>
       <div class="globe-information">
-        <span id="updatedTime"></span>
         <span id="updateButton" class="material-symbols-outlined">
           refresh
         </span>
       </div>
+    </div>
+    <div id="floatingSelect">
+      <ul>
+          <li class="image-option" value="b03">B03 (Visible)</li>
+          <li class="image-option" value="dms">Day Microphysics RGB</li>
+          <li class="image-option" value="ngt">Night Microphysics RGB</li>
+          <li class="image-option" value="dst">Dust RGB</li>
+          <li class="image-option" value="arm">Airmass RGB</li>
+          <li class="image-option" value="dsl">Day Snow-Fog RGB</li>
+          <li class="image-option" value="dnc">Natural Color RGB</li>
+          <li class="image-option" value="tre">True Color RGB (Enhanced)</li>
+          <li class="image-option" value="trm" selected>True Color Reproduction Image</li>
+          <li class="image-option" value="cve">Day Convective Storm RGB</li>
+          <li class="image-option" value="snd">Sandwich</li>
+          <li class="image-option" value="vir">B03 combined with B13</li>
+          <li class="image-option" value="irv">B03 and B13 at night</li>
+      </ul>
     </div>
     <script type="text/javascript" src="./app.js"></script>
   </body>

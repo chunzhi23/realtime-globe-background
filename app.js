@@ -1,4 +1,5 @@
 let updateTimer = null; // Store the scheduled update timer
+let selectedType = "trm"; // Default selected type
 
 async function fetchLatestImageTime() {
   const url =
@@ -32,7 +33,7 @@ async function setGlobeImage() {
   const timeValue = await fetchLatestImageTime();
   if (!timeValue) return;
 
-  const imageUrl = `https://www.data.jma.go.jp/mscweb/data/himawari/img/fd_/fd__trm_${timeValue}.jpg`;
+  const imageUrl = `https://www.data.jma.go.jp/mscweb/data/himawari/img/fd_/fd__${selectedType}_${timeValue}.jpg`;
 
   try {
     const imageResponse = await fetch(imageUrl);
@@ -43,11 +44,6 @@ async function setGlobeImage() {
       targetDiv.style.backgroundImage = `url(${imageUrl})`;
       targetDiv.style.backgroundSize = "cover";
       targetDiv.style.backgroundPosition = "center";
-
-      // Update UI with timestamp
-      document.getElementById(
-        "updatedTime"
-      ).textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
     } else {
       console.error("Div with ID 'globeContainer' not found.");
     }
@@ -62,7 +58,7 @@ function scheduleNextUpdate() {
   const seconds = now.getSeconds();
 
   // Calculate the time until the next update (next 10-minute mark)
-  const nextUpdateMinutes = Math.ceil(minutes / 10) * 10;
+  const nextUpdateMinutes = Math.ceil(minutes / 10) * 10 + 1;
   const minutesUntilNextUpdate = nextUpdateMinutes - minutes;
 
   // If it's exactly on the 10-minute mark, update immediately
@@ -97,10 +93,29 @@ function refreshGlobeImage() {
   setGlobeImage().then(scheduleNextUpdate); // Update immediately and restart scheduler
 }
 
+// Handle selection change from floatingSelect
+document.querySelectorAll("#floatingSelect .image-option").forEach((item) => {
+  item.addEventListener("click", function () {
+    // Remove 'selected' from all items
+    document
+      .querySelectorAll("#floatingSelect .image-option")
+      .forEach((li) => li.removeAttribute("selected"));
+
+    // Add 'selected' to clicked item
+    this.setAttribute("selected", "true");
+
+    // Update selected type
+    selectedType = this.getAttribute("value");
+    console.log(`Selected Type: ${selectedType}`);
+
+    refreshGlobeImage(); // Fetch and update immediately
+  });
+});
+
 // Initialize: Load first image and start the scheduler
 setGlobeImage().then(scheduleNextUpdate);
 
 // Attach event listener to the button
 document
-  .getElementById("updateButton")
+  .querySelector(".globe-information input")
   .addEventListener("click", refreshGlobeImage);
