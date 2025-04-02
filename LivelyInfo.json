@@ -2,7 +2,7 @@
   "AppVersion": "0.0.1",
   "Title": "Realtime Globe Wallpaper",
   "Thumbnail": "lively_t.jpg",
-  "Preview": "lively_p.jpg",
+  "Preview": "lively_t.jpg",
   "Desc": "Realtime globe wallpaper with the data from Himawari Real-Time Image",
   "Author": "Jongmin Lee",
   "License": "LICENSE",
