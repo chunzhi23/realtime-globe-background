@@ -154,25 +154,41 @@ function updateMessage(element, message, timeoutVar) {
   }
 }
 
-// Handle scrolling inside #globeContainer
-globeContainer.addEventListener("wheel", (event) => {
-  event.preventDefault(); // Prevent page scrolling
-
-  if (event.deltaY < 0) {
-    // Scroll up → Increase size
-    containerSize = Math.min(containerSize + 10, maxSize);
-  } else {
-    // Scroll down → Decrease size
-    containerSize = Math.max(containerSize - 10, minSize);
-  }
+// Function to handle resizing
+function resizeGlobe(change) {
+  containerSize = Math.min(Math.max(containerSize + change, minSize), maxSize);
 
   globeContainer.style.width = `${containerSize}vmin`;
   globeContainer.style.height = `${containerSize}vmin`;
 
-  // Update resize message
-  const msg = parseInt((containerSize / 60) * 100);
+  // Convert to percentage based on 60vmin as 100%
+  const msg = Math.round((containerSize / 60) * 100);
   updateMessage(resizeMsg, `Size: ${msg}%`, resizeTimeout);
+}
+
+// Handle mouse wheel scrolling
+globeContainer.addEventListener("wheel", (event) => {
+  if (
+    document.activeElement === document.body ||
+    document.activeElement === document.documentElement
+  ) {
+    event.preventDefault();
+    resizeGlobe(event.deltaY < 0 ? 10 : -10);
+  }
 });
+
+// Handle keyboard arrow keys
+document.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowUp") {
+    resizeGlobe(10);
+  } else if (event.key === "ArrowDown") {
+    resizeGlobe(-10);
+  }
+});
+
+// Handle button clicks
+growGlobeBtn.addEventListener("click", () => resizeGlobe(10));
+shrinkGlobeBtn.addEventListener("click", () => resizeGlobe(-10));
 
 // Override refresh function to notify success
 async function refreshGlobeImage() {

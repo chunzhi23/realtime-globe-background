@@ -28,7 +28,36 @@ li {
   transition: width 0.3s ease, height 0.3s ease;
 }
 
-#floatingInfo {
+#floatingLeft {
+  margin-left: 2em;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: #ffffff;
+  text-align: left;
+}
+
+#resizePanel {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.resize-button {
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #ffffff23;
+  transition: all 0.2s ease-out;
+  user-select: none;
+}
+.resize-button:hover {
+  background-color: #ffffff42;
+}
+
+#floatingRight {
   margin-right: 2em;
   width: 20em;
   position: absolute;
